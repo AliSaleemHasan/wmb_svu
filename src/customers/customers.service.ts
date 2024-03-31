@@ -61,7 +61,10 @@ export class CustomerService {
   }
 
   async findById(id: number): Promise<Customer[]> {
-    return this.customerRepository.find({ where: { id } });
+    return this.customerRepository.find({
+      where: { id },
+      relations: { invoices: true },
+    });
   }
 
   async findByUsername(username: string): Promise<Customer | null> {
@@ -71,8 +74,6 @@ export class CustomerService {
   async update(id: number, Customer: Partial<Customer>): Promise<UpdateResult> {
     if (Customer.password)
       Customer.password = await hash(Customer.password, 10);
-
-    console.log(Customer);
 
     return await this.customerRepository.update({ id }, { ...Customer });
   }

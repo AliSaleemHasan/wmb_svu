@@ -15,6 +15,15 @@ export class ArtistService {
     return await this.artistRepo.find();
   }
 
+  async search(name: string) {
+    return this.artistRepo
+      .createQueryBuilder('artist')
+      .where('artist.FName LIKE :q OR artist.LName LIKE :q ', {
+        q: `%${name}%`,
+      })
+      .getMany();
+  }
+
   async getById(id: number) {
     return await this.artistRepo.findOne({
       where: { id },

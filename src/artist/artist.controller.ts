@@ -25,6 +25,13 @@ export class ArtistController {
     return { data: await this.artistService.createArtist(body) };
   }
 
+  @Roles(['admin'])
+  @UseGuards(JwtGuard)
+  @Get('/search/:q')
+  async searchArtist(@Param('q') q: string) {
+    return { data: await this.artistService.search(q) };
+  }
+
   @UseGuards(JwtGuard)
   @Get('')
   async getAllArtists() {

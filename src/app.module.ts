@@ -12,6 +12,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { ArtistModule } from './artist/artist.module';
 import { SongModule } from './song/song.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SongModule } from './song/song.module';
     UsersModule,
     ArtistModule,
     SongModule,
+    OrderModule,
   ],
   controllers: [AppController, UsersController],
   providers: [
