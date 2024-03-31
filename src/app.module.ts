@@ -1,12 +1,32 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config/configService';
 
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './customers/customers.module';
+import { UsersController } from './customers/customers.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
+
 @Module({
-  imports: [TypeOrmModule.forRoot(configService.getTypeOrmConfig())],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    JwtModule.register({
+      global: true,
+    }),
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    AuthModule,
+    UsersModule,
+  ],
+  controllers: [AppController, UsersController],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
