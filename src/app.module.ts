@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { ArtistModule } from './artist/artist.module';
+import { SongModule } from './song/song.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ArtistModule } from './artist/artist.module';
     AuthModule,
     UsersModule,
     ArtistModule,
+    SongModule,
   ],
   controllers: [AppController, UsersController],
   providers: [

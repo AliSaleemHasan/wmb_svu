@@ -1,9 +1,11 @@
+import { Song } from 'src/song/song.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   PrimaryColumn,
   Unique,
+  OneToMany,
 } from 'typeorm';
 
 export enum Gender {
@@ -31,4 +33,7 @@ export class Artist {
     default: Gender.Male,
   })
   gender: Gender;
+
+  @OneToMany(() => Song, (song) => song.artist, { nullable: true })
+  songs: Song[];
 }

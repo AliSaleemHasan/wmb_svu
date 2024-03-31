@@ -12,6 +12,7 @@ import { ArtistService } from './artist.service';
 import { Roles } from 'src/auth/roles.decorator';
 import { JwtGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Artist } from './artist.entity';
+import { Song } from '../song/song.entity';
 
 @Controller('artist')
 export class ArtistController {
@@ -49,5 +50,17 @@ export class ArtistController {
   @Put(':id')
   async updateArtist(@Param('id') id: string, @Body() body: Partial<Artist>) {
     return { data: await this.artistService.updateArtist(+id, body) };
+  }
+
+  //   songs
+
+  @Roles(['admin'])
+  @UseGuards(JwtGuard)
+  @Post(':id/song')
+  async addSongsForArtist(
+    @Param('id') id: string,
+    @Body() body: Partial<Song>,
+  ) {
+    return { data: await this.artistService.addSongToArtist(+id, body) };
   }
 }
