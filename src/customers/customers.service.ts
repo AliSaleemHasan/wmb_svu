@@ -69,6 +69,11 @@ export class CustomerService {
   }
 
   async update(id: number, Customer: Partial<Customer>): Promise<UpdateResult> {
+    if (Customer.password)
+      Customer.password = await hash(Customer.password, 10);
+
+    console.log(Customer);
+
     return await this.customerRepository.update({ id }, { ...Customer });
   }
 

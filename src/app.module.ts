@@ -10,6 +10,7 @@ import { UsersController } from './customers/customers.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     AuthModule,
     UsersModule,
+    ArtistModule,
   ],
   controllers: [AppController, UsersController],
   providers: [
