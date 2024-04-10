@@ -1,6 +1,5 @@
 // src/config/config.service.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { join } from 'path';
 
 require('dotenv').config();
 
@@ -34,8 +33,7 @@ class ConfigService {
     return {
       type: 'postgres',
       url: this.getValue('POSTGRES_URL'),
-      entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-
+      entities: [__dirname + '/../**/*.entity.{js,ts}'],
       migrationsTableName: 'migration',
       synchronize: true,
 
