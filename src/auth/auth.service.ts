@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { Customer } from 'src/customers/customer.entity';
 
 // 5 days
-const EXPIRE_TIME = 300 * 1000 * 24;
+const EXPIRE_TIME = 300 * 1000 * 24 * 40;
 
 @Injectable()
 export class AuthService {
@@ -47,11 +47,11 @@ export class AuthService {
       customer,
       backendTokens: {
         accessToken: await this.jwtService.signAsync(payload, {
-          expiresIn: '3d',
+          expiresIn: '40d',
           secret: process.env.JWT_ACCESS_SECRET,
         }),
         refreshToken: await this.jwtService.signAsync(payload, {
-          expiresIn: '7d',
+          expiresIn: '40d',
           secret: process.env.JWT_REFRESH_SECRET,
         }),
         expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
@@ -84,11 +84,11 @@ export class AuthService {
 
     return {
       accessToken: await this.jwtService.signAsync(payload, {
-        expiresIn: '3d',
+        expiresIn: '40d',
         secret: process.env.JWT_ACCESS_SECRET,
       }),
       refreshToken: await this.jwtService.signAsync(payload, {
-        expiresIn: '7d',
+        expiresIn: '40d',
         secret: process.env.JWT_REFRESH_SECRET,
       }),
       expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
