@@ -37,7 +37,16 @@ export class ArtistService {
   }
 
   async deleteArtist(id: number) {
-    return await this.artistRepo.delete({ id });
+    return await this.artistRepo.manager.transaction(async (entityManager) => {
+      const artist = await entityManager.findOne(Artist, {
+        where: { id },
+        relations: { songs: true },
+      });
+      if (artist) {
+        await entityManager.remove(artist.songs);
+        await entityManager.remove(artist);
+      }
+    });
   }
 
   async updateArtist(id: number, artist: Partial<Artist>) {
