@@ -37,7 +37,8 @@ export class ArtistService {
   }
 
   async deleteArtist(id: number) {
-    return await this.artistRepo.delete({ id });
+    let artist = await this.artistRepo.findOne({ where: { id } });
+    return await this.artistRepo.remove(artist);
   }
 
   async updateArtist(id: number, artist: Partial<Artist>) {
