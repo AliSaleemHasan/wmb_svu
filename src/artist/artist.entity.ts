@@ -35,7 +35,7 @@ export class Artist {
   gender: Gender;
 
   @OneToMany(() => Song, (song) => song.artist, {
-    nullable: true,
+    nullable: false,
     cascade: ['remove'],
   })
   songs: Song[];
