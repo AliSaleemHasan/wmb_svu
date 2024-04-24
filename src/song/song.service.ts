@@ -10,7 +10,7 @@ export class SongService {
   ) {}
 
   async getAllSongs() {
-    return await this.songRepository.find({ relations: { artist: true } });
+    return await this.songRepository.find({ relations: ['artist'] });
   }
 
   async SearchByName(title: string) {
