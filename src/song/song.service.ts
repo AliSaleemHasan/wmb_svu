@@ -16,6 +16,7 @@ export class SongService {
   async SearchByName(title: string) {
     return await this.songRepository.find({
       where: { title: Like(`%${title}%`) },
+      relations: { artist: true },
     });
   }
 
