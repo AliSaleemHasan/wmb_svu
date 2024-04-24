@@ -15,6 +15,6 @@ export class Song {
   @Column()
   price: number;
 
-  @ManyToOne(() => Artist, (artist) => artist.songs)
+  @ManyToOne(() => Artist, (artist) => artist.songs, { nullable: false })
   artist: Artist;
 }
